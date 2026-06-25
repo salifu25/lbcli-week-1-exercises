@@ -174,24 +174,30 @@ NEW_TAPROOT_ADDR=$(trim "$NEW_TAPROOT_ADDR")
 # WRITE YOUR SOLUTION BELOW:
 echo "Address=[$NEW_TAPROOT_ADDR]"
 echo "Length=${#NEW_TAPROOT_ADDR}"
+echo "STEP 1"
 ADDR_INFO=$(bitcoin-cli -regtest -rpcwallet=btrustwallet getaddressinfo "$NEW_TAPROOT_ADDR")
+echo "STEP 2"
 check_cmd "Getting address info"
 
 # STUDENT TASK: Extract the internal key (the x-only pubkey) from the descriptor
 # WRITE YOUR SOLUTION BELOW:
 INTERNAL_KEY=$(echo "$ADDR_INFO" | grep -oP '"internalkey":\s*"\K[^"]+')
+echo "STEP 3"
 check_cmd "Extracting key from descriptor"
 INTERNAL_KEY=$(trim "$INTERNAL_KEY")
+echo "STEP 4"
 
 # STUDENT TASK: Create a proper descriptor with just the key
 # WRITE YOUR SOLUTION BELOW:
 echo "Using internal key: $INTERNAL_KEY"
 SIMPLE_DESCRIPTOR="tr($INTERNAL_KEY)"
+echo "STEP 5"
 echo "Simple descriptor: $SIMPLE_DESCRIPTOR"
 
 # STUDENT TASK: Get a proper descriptor with checksum
 # WRITE YOUR SOLUTION BELOW:
 TAPROOT_DESCRIPTOR=$(bitcoin-cli -regtest getdescriptorinfo "$SIMPLE_DESCRIPTOR" | grep -oP '"descriptor":\s*"\K[^"]+')
+echo "STEP 6"
 check_cmd "Descriptor generation"
 TAPROOT_DESCRIPTOR=$(trim "$TAPROOT_DESCRIPTOR")
 echo "Taproot treasure map: $TAPROOT_DESCRIPTOR"
