@@ -166,7 +166,11 @@ echo "Create a descriptor for your taproot address and derive the address to ens
 
 # STUDENT TASK: Create a new taproot address
 # WRITE YOUR SOLUTION BELOW:
-NEW_TAPROOT_ADDR=$(bitcoin-cli -regtest -rpcwallet=btrustwallet getnewaddress "" bech32m)
+echo "Generating taproot address..."
+
+bitcoin-cli -regtest -rpcwallet=btrustwallet getnewaddress "" bech32m
+
+echo "Taproot generation succeeded"
 check_cmd "New taproot address generation"
 NEW_TAPROOT_ADDR=$(trim "$NEW_TAPROOT_ADDR")
 
